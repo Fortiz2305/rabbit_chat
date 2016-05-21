@@ -1,5 +1,4 @@
 var amqp = require('amqplib/callback_api');
-var tools = require('./tools.js');
 var express = require('express');
 var fs = require('fs');
 var app = express();
@@ -27,8 +26,8 @@ function addChannel(ch) {
 
       channel.assertQueue('', {exclusive: true}, function(err, q) {
         console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", ch);
-
-        args.forEach(function(key) {
+        console.log(ch);
+        ch.forEach(function(key) {
           channel.bindQueue(q.queue, exchange, key);
         });
 

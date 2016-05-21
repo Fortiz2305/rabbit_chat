@@ -1,0 +1,46 @@
+'use strict'
+var inquirer = require('inquirer');
+var cli = require ('../lib/cli');
+
+var command = ( process.argv[2] ) ? process.argv[2] : null;
+var commands = ["help","version","writeMessage"];
+
+// Check if the command is valid
+if ( !command  || ((commands.indexOf(command) != -1) === false )) {
+  cli.help();
+} else {
+  switch(command)
+    {
+      case "help", "version":
+        server[command]();
+        break;
+      case "writeMessage":
+        inquirer.prompt([
+          {
+            type: 'input',
+            name: 'user',
+            message: 'Enter your username'
+          },
+          {
+            type: 'input',
+            name: 'destination_channel',
+            message: 'Enter destination channel'
+          },
+          {
+            type: 'input',
+            name: 'message',
+            message: 'Enter message'
+          }
+        ]).then(function (answers) {
+          cli["writeMessage"](JSON.stringify(answers.user, null, '  '),
+            JSON.stringify(answers.destination_channel, null, '  '),
+            JSON.stringify(answers.message, null, '  '));
+        });
+        break;
+      default:
+        server["help"]();
+    }
+}
+
+
+

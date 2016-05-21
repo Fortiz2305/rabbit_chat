@@ -1,0 +1,54 @@
+'use strict'
+var inquirer = require('inquirer');
+var server = require ('../lib/server');
+
+var command = ( process.argv[2] ) ? process.argv[2] : null;
+var commands = ["help", "version", "createChannel"];
+
+// Check if the command is valid
+if ( !command  || ((commands.indexOf(command) != -1) === false )) {
+  server["help"]();
+} else {
+  switch(command)
+    {
+      case "help", "version":
+        server[command]();
+        break;
+      case "createChannel":
+        inquirer.prompt([
+          {
+             type: 'list',
+             name: 'channel_type',
+             message: 'Enter the channel type',
+             choices: [
+               new inquirer.Separator(' = Channel types = '),
+                 {
+                   name: 'Public'
+                 },
+                 {
+                   name: 'Private'
+                 }
+             ],
+             validate: function(answer) {
+               if (answer.length < 1) {
+                 return 'You must choose at least one type.';
+               }
+             return true;
+             }
+          },
+          {
+              type: 'input',
+              name: 'channel_name',
+              message: 'Enter the channel name'
+          }
+        ]).then(function (answers) {
+          server["createChannel"](JSON.stringify(answers.channel_type, null, '  ').split(), JSON.stringify(answers.channel_name, null, '  ').split());
+        });
+        break;
+      default:
+        server["help"]();
+    }
+}
+
+
+

@@ -3,7 +3,7 @@ var inquirer = require('inquirer');
 var server = require ('../lib/server');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
-var commands = ["help", "version", "createChannel"];
+var commands = ["--help", "--h", "--version", "--v", "--createChannel", "--c"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
@@ -11,10 +11,13 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
 } else {
   switch(command)
     {
-      case "help", "version":
-        server[command]();
+      case "--help", "--h":
+        server["help"]();
         break;
-      case "createChannel":
+      case "--version", "--v":
+        server["version"]();
+        break;
+      case "--createChannel", "--c":
         inquirer.prompt([
           {
              type: 'list',

@@ -3,18 +3,24 @@ var inquirer = require('inquirer');
 var cli = require ('../lib/cli');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
-var commands = ["help","version","writeMessage"];
+var commands = ["--help", "--h", "--version", "--v", "--writeMessage", "--w", "--getChannels", "--g"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
-  cli.help();
+  cli["help"]();
 } else {
   switch(command)
     {
-      case "help", "version":
-        server[command]();
+      case "--help", "--h":
+        cli["help"]();
         break;
-      case "writeMessage":
+      case "--version", "--v":
+        cli["version"]();
+        break;
+      case "--getChannels", "--g":
+        cli["getChannels"]();
+        break;
+      case "--writeMessage", "--w":
         inquirer.prompt([
           {
             type: 'input',
@@ -38,7 +44,7 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
         });
         break;
       default:
-        server["help"]();
+        cli["help"]();
     }
 }
 

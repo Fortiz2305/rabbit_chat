@@ -1,11 +1,12 @@
 {
     "name": "rabbitmq-chat",
-    "version": "0.0.1",
+    "version": "v0.0.1",
     "description": "CLI for RabbitMQ chat",
     "author": "Francisco Ortiz",
     "keywords": ["cli","server", "rabbitmq"],
     "dependencies": {
-        "amqp": "0.9.1"
+        "amqp": "0.9.1",
+        "inquire": "1.0.2"
     },
     "directories": {"lib": "./lib" },
     "main": "./index.js",

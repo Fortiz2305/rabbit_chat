@@ -3,7 +3,7 @@ var inquirer = require('inquirer');
 var server = require ('../lib/server');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
-var commands = ["--help", "--h", "--version", "--v", "--createChannel", "--c"];
+var commands = ["--help", "--h", "--version", "--v", "--listenChannel", "--l"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
@@ -17,35 +17,33 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
       case "--version", "--v":
         server["version"]();
         break;
-      case "--createChannel", "--c":
+      case "--listenChannel", "--l":
         inquirer.prompt([
           {
-             type: 'list',
-             name: 'channel_type',
-             message: 'Enter the channel type',
-             choices: [
-               new inquirer.Separator(' = Channel types = '),
-                 {
-                   name: 'Public'
-                 },
-                 {
-                   name: 'Private'
-                 }
-             ],
+             type: 'input',
+             name: 'user',
+             message: 'Enter your username',
              validate: function(answer) {
                if (answer.length < 1) {
-                 return 'You must choose at least one type.';
+                 return 'You must enter your username.';
                }
              return true;
              }
           },
           {
-              type: 'input',
+              type: 'checkbox',
               name: 'channel_name',
-              message: 'Enter the channel name'
+              message: 'Enter the channel name',
+              choices: fs.readFileSync(path.resolve(__dirname, 'channels.txt')).toString().split(","),
+              validate: function (answer) {
+                  if (answer.length < 1) {
+                      return 'You must choose at least one channel';
+                  }
+                  return true;
+              }
           }
         ]).then(function (answers) {
-          server["createChannel"](JSON.stringify(answers.channel_type, null, '  ').split(), JSON.stringify(answers.channel_name, null, '  ').split());
+          server["createChannel"](JSON.stringify(answers.user, null, '  ').split(), JSON.stringify(answers.channel_name, null, '  ').split());
         });
         break;
       default:

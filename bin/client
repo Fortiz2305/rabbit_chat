@@ -1,9 +1,11 @@
 'use strict'
 var inquirer = require('inquirer');
 var cli = require ('../lib/cli');
+var fs = require('fs');
+var path = require('path');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
-var commands = ["--help", "--h", "--version", "--v", "--writeMessage", "--w", "--getChannels", "--g"];
+var commands = ["--help", "--h", "--version", "--v", "--write", "--w", "--getChannels", "--g"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
@@ -20,17 +22,18 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
       case "--getChannels", "--g":
         cli["getChannels"]();
         break;
-      case "--writeMessage", "--w":
+      case "--write", "--w":
         inquirer.prompt([
           {
             type: 'input',
             name: 'user',
-            message: 'Enter your username'
+            message: 'Enter username'
           },
           {
             type: 'input',
             name: 'destination_channel',
-            message: 'Enter destination channel'
+            message: 'Enter destination channel',
+            //choices: fs.readFileSync(path.resolve(__dirname, '../channels.txt')).toString().split(",")
           },
           {
             type: 'input',
@@ -38,8 +41,9 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
             message: 'Enter message'
           }
         ]).then(function (answers) {
-          cli["writeMessage"](JSON.stringify(answers.user, null, '  '),
-            JSON.stringify(answers.destination_channel, null, '  '),
+          console.log(answers.destination_channel);
+          cli["write"](JSON.stringify(answers.user, null, '  '),
+            JSON.stringify(answers.destination_channel, null, ' '),
             JSON.stringify(answers.message, null, '  '));
         });
         break;

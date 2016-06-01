@@ -1,24 +1,24 @@
 'use strict'
 var inquirer = require('inquirer');
-var server = require ('../lib/server');
+var rabbit_chat = require ('../lib/rabbit_chat');
 var fs = require('fs');
 var path = require('path');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
 var user = (process.argv[4] ) ? process.argv[4] : null;
-var commands = ["--help", "--h", "--version", "--v", "--addChannel", "--a", "--listenChannel", "--l", "--getChannels", "--g"];
+var commands = ["--help", "--h", "--version", "--v", "--addChannel", "--a", "--listenChannel", "--l", "--getChannels", "--g", "--write", "--w"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
-  server["help"]();
+  rabbit_chat["help"]();
 } else {
   switch(command)
     {
       case "--help", "--h":
-        server["help"]();
+        rabbit_chat["help"]();
         break;
       case "--version", "--v":
-        server["version"]();
+        rabbit_chat["version"]();
         break;
       case "--addChannel", "--a":
         inquirer.prompt([
@@ -39,8 +39,7 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
              message: 'Enter channel name'
           }
         ]).then(function (answers) {
-            //server["addChannel"](JSON.stringify(answers.user, null, '  ').split(), JSON.stringify(answers.channel_name, null, '  ').split());
-            server["addChannel"](answers.user, JSON.stringify(answers.channel_name, null, '  ').split());
+            rabbit_chat["addChannel"](answers.user, JSON.stringify(answers.channel_name, null, '  ').split());
         });
         break;
       case "--getChannels", "--g":
@@ -57,7 +56,7 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
             }
           }
         ]).then(function (answers) {
-            server["getChannels"](answers.user);
+            rabbit_chat["getChannels"](answers.user);
         });
         break;
       case "--listenChannel", "--l":
@@ -79,11 +78,41 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
               }
           }
         ]).then(function (answers) {
-          server["listenChannel"](answers.channel_name);
+          rabbit_chat["listenChannel"](answers.channel_name);
+        });
+        break;
+      case "--write", "--w":
+        if ( !user ) {
+            console.log('You must enter an username. NOTE: Use --u option');
+            process.exit(1);
+        }
+        inquirer.prompt([
+          {
+            type: 'checkbox',
+            name: 'destination_channel',
+            message: 'Enter destination channel',
+            choices: fs.readFileSync(path.resolve(__dirname, '..', 'data', 'users_channels', `${user}.txt`)).toString().split("\n"),
+            validate: function (answer) {
+              if (answer.length < 1) {
+                  return 'You must choose at least one channel';
+              }
+              return true;
+            }
+          },
+          {
+            type: 'input',
+            name: 'message',
+            message: 'Enter message'
+          }
+        ]).then(function (answers) {
+          console.log(answers.destination_channel);
+          rabbit_chat["write"](user,
+            answers.destination_channel.toString(),
+            JSON.stringify(answers.message, null, '  '));
         });
         break;
       default:
-        server["help"]();
+        rabbit_chat["help"]();
     }
 }
 

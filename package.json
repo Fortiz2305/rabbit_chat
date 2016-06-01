@@ -1,21 +1,22 @@
 {
-    "name": "rabbitmq-chat",
+    "name": "rabbit_chat",
     "version": "v0.0.1",
     "description": "CLI for RabbitMQ chat",
     "author": "Francisco Ortiz",
-    "keywords": ["cli","server", "rabbitmq"],
+    "keywords": ["chat", "rabbitmq"],
     "dependencies": {
-        "amqp": "0.9.1",
-        "inquirer": "1.0.2"
+        "amqp": "0.2.4",
+        "inquirer": "1.0.3",
+        "fs": "0.0.2",
+        "path": "0.12.7"
     },
     "directories": {"lib": "./lib" },
     "main": "./index.js",
     "bin": {
-        "client": "./bin/client",
-        "server": "./bin/server"
+        "rabbit_chat": "./bin/rabbit_chat"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Fortiz2305/rabbitmq-chat.git"
+        "url": "https://github.com/Fortiz2305/rabbit_chat.git"
     }
 }

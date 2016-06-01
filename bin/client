@@ -5,7 +5,8 @@ var fs = require('fs');
 var path = require('path');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
-var commands = ["--help", "--h", "--version", "--v", "--write", "--w", "--getChannels", "--g"];
+var user = ( process.argv[4] ) ? process.argv[4] : null;
+var commands = ["--help", "--h", "--version", "--v", "--write", "--w"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
@@ -19,21 +20,23 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
       case "--version", "--v":
         cli["version"]();
         break;
-      case "--getChannels", "--g":
-        cli["getChannels"]();
-        break;
       case "--write", "--w":
+        if ( !user ) {
+            console.log('You must enter an username. NOTE: Use --u option');
+            process.exit(1);
+        }
         inquirer.prompt([
           {
-            type: 'input',
-            name: 'user',
-            message: 'Enter username'
-          },
-          {
-            type: 'input',
+            type: 'checkbox',
             name: 'destination_channel',
             message: 'Enter destination channel',
-            //choices: fs.readFileSync(path.resolve(__dirname, '../channels.txt')).toString().split(",")
+            choices: fs.readFileSync(path.resolve(__dirname, '..', 'data', 'users_channels', `${user}.txt`)).toString().split("\n"),
+            validate: function (answer) {
+              if (answer.length < 1) {
+                  return 'You must choose at least one channel';
+              }
+              return true;
+            }
           },
           {
             type: 'input',
@@ -42,8 +45,8 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
           }
         ]).then(function (answers) {
           console.log(answers.destination_channel);
-          cli["write"](JSON.stringify(answers.user, null, '  '),
-            JSON.stringify(answers.destination_channel, null, ' '),
+          cli["write"](user,
+            answers.destination_channel.toString(),
             JSON.stringify(answers.message, null, '  '));
         });
         break;

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 'use strict'
 var inquirer = require('inquirer');
 var rabbit_chat = require ('../lib/rabbit_chat');

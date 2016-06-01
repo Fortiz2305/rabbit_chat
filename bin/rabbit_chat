@@ -6,9 +6,7 @@ var path = require('path');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
 var user = (process.argv[4] ) ? process.argv[4] : null;
-var commands = ["--help", "--h", "--version", "--v", "--addChannel",
-                "--a", "--listenChannel", "--l", "--getChannels",
-                "--g", "--write", "--w"];
+var commands = ["-h", "-v", "-a", "-l", "-g", "-w"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {
@@ -16,13 +14,13 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
 } else {
   switch(command)
     {
-      case "--help", "--h":
+      case "-h":
         rabbit_chat["help"]();
         break;
-      case "--version", "--v":
+      case "-v":
         rabbit_chat["version"]();
         break;
-      case "--addChannel", "--a":
+      case "-a":
         inquirer.prompt([
           {
              type: 'input',
@@ -46,7 +44,7 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
                                      null, '  ').split());
         });
         break;
-      case "--getChannels", "--g":
+      case "-g":
         inquirer.prompt([
           {
             type: 'input',
@@ -63,9 +61,9 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
             rabbit_chat["getChannels"](answers.user);
         });
         break;
-      case "--listenChannel", "--l":
+      case "-l":
         if ( !user ) {
-          console.log('You must enter an username, NOTE: use --u option');
+          console.log('You must enter an username, NOTE: use -u option');
           process.exit(1);
         }
         inquirer.prompt([
@@ -86,9 +84,9 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
           rabbit_chat["listenChannel"](answers.channel_name);
         });
         break;
-      case "--write", "--w":
+      case "-w":
         if ( !user ) {
-            console.log('You must enter an username. NOTE: Use --u option');
+            console.log('You must enter an username. NOTE: Use -u option');
             process.exit(1);
         }
         inquirer.prompt([

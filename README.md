@@ -103,7 +103,7 @@ John Nieve will be able to write and listen on Winterfell now.
 ```console
 bash-3.2$ rabbit_chat -l -u "John Nieve"
 ? Select the channel name (Press <space> to select)
-❯◯ "Winterfell"
+❯ ◯  "Winterfell"
 ```
 
 As it pointed before, John Nieve is only able to listen on his channels
@@ -116,7 +116,7 @@ Like listening, John Nieve will be able to write into Winterfell.
 ```console
 bash-3.2$ rabbit_chat -w -u "John Nieve"
 ? Select destination channel (Press <space> to select)
-❯◯ "Winterfell"
+❯ ◯  "Winterfell"
 ```
 ```console
 bash-3.2$ rabbit_chat -w -u "John Nieve"

@@ -86,7 +86,7 @@ $ npm install
 ```
 
 To start with rabbit_chat, you have to add your favourite channels with
-your username. That way, you can write or listen this channel.
+your username. That way, you can write or listen on this channel.
 
 #### Add a channel
 
@@ -124,4 +124,8 @@ bash-3.2$ rabbit_chat -w -u "John Nieve"
 ? Enter message
 ```
 
+## More information
 
+For more information about RabbitMQ, please go to [RabbitMQ
+Site](https://www.rabbitmq.com/) and [RabbitMQ
+tutorials](https://www.rabbitmq.com/getstarted.html).

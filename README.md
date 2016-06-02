@@ -1,7 +1,7 @@
 # rabbit_chat
 
 **rabbit_chat** is a command line tool that allows you to use a chat
-using ([RabbitMQ](https://www.rabbitmq.com/)).
+using [RabbitMQ](https://www.rabbitmq.com/).
 
 ## Introduction to RabbitMQ
 
@@ -72,9 +72,9 @@ Usage: rabbit_chat -option [parameter]
 ### Requirements
 
 * RabbitMQ server: you can download it
-  ([here](https://www.rabbitmq.com/download.html)).
+  [here](https://www.rabbitmq.com/download.html).
 
-* ([NodeJS](https://nodejs.org/en/download/package-manager/))
+* Node JS: You can download it [here](https://nodejs.org/en/download/package-manager/)
 
 ### Usage
 

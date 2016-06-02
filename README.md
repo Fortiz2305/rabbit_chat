@@ -15,7 +15,7 @@ A message broker accepts messages from one or more endpoints ("Producers") and s
 
 ## Fundamental pieces
 
--> ![alt tag](https://raw.githubusercontent.com/fortiz2305/rabbit_chat/master/pics/rabbitpieces.png) <-
+-> ![alt text](https://raw.githubusercontent.com/fortiz2305/rabbit_chat/master/pics/rabbitpieces.png) <-
 
 
 

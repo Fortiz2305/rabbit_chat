@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 'use strict'
-var inquirer = require('inquirer');
-var rabbit_chat = require ('../lib/rabbit_chat');
-var fs = require('fs');
-var path = require('path');
+const inquirer = require('inquirer');
+const rabbit_chat = require ('../lib/rabbit_chat');
+const fs = require('fs');
+const path = require('path');
 
 var command = ( process.argv[2] ) ? process.argv[2] : null;
 var user = (process.argv[4] ) ? process.argv[4] : null;
-var commands = ["-h", "-v", "-a", "-l", "-g", "-w"];
+const commands = ["-h", "-v", "-a", "-l", "-g", "-w"];
 
 // Check if the command is valid
 if ( !command  || ((commands.indexOf(command) != -1) === false )) {

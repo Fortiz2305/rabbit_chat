@@ -5,7 +5,7 @@
     "author": "Francisco Ortiz",
     "keywords": ["chat", "rabbitmq"],
     "dependencies": {
-        "amqp": "0.2.4",
+        "amqplib": "0.4.2",
         "inquirer": "1.0.3",
         "fs": "0.0.2",
         "path": "0.12.7"

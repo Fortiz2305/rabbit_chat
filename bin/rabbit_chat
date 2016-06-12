@@ -73,7 +73,7 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
               type: 'checkbox',
               name: 'channel_name',
               message: 'Select the channel name',
-              choices: fs.readFileSync(path.resolve(__dirname, '..', 'data',
+              choices: fs.readFileSync(path.resolve(__dirname, '..',
                                        'users_channels', `${user}.txt`)).toString().split("\n"),
               validate: function (answer) {
                   if (answer.length < 1) {
@@ -96,7 +96,7 @@ if ( !command  || ((commands.indexOf(command) != -1) === false )) {
             type: 'checkbox',
             name: 'destination_channel',
             message: 'Select destination channel',
-            choices: fs.readFileSync(path.resolve(__dirname, '..', 'data',
+            choices: fs.readFileSync(path.resolve(__dirname, '..',
                                      'users_channels', `${user}.txt`)).toString().split("\n"),
             validate: function (answer) {
               if (answer.length < 1) {
